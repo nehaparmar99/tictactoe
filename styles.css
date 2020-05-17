@@ -165,7 +165,7 @@ child numbers */
   justify-content: center;
   align-items: center;
   color: white;
-  font-size: 5rem;
+  font-size: 4.5rem;
   /* to stack x wins and button vertically */
   flex-direction: column;
 }

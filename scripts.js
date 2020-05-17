@@ -1,3 +1,5 @@
+var name1 = prompt("ENTER PLAYER 1's name");
+var name2 = prompt("ENTER PLAYER 2's name");
 const X_CLASS = "x";
 const CIRCLE_CLASS = "circle";
 const WINNING_COMBINATIONS = [
@@ -66,7 +68,7 @@ function endGame(draw) {
   if (draw) {
     winningMsgTextElement.innerText = " Draw!";
   } else {
-    const wins = circleTurn ? "O's" : "X's";
+    const wins = circleTurn ? name2 : name1;
     winningMsgTextElement.innerText = wins + " Wins!";
   }
   winningMessageElement.classList.add("show");
