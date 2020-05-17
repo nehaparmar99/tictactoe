@@ -1,0 +1,186 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+:root {
+  --cell-size: 100px;
+  --mark-size: calc(var(--cell-size) * 0.9);
+  /* this is the size of xs and os,and we want them to be 90% of the cell size */
+}
+body {
+  margin: 0;
+  background-color: rgb(5, 150, 53);
+}
+h1 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  font-size: 4.5em;
+  padding-bottom: 10px;
+  text-align: center;
+  color: red;
+}
+.board {
+  /* //fills entire screen */
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  padding-top: 50px;
+  justify-content: center;
+  align-content: center;
+  /* to align items-xs and os individually */
+  justify-items: center;
+  align-items: center;
+  grid-template-columns: repeat(3, auto);
+  /* this is to make a 3*3 gridd */
+}
+.cell {
+  /* after defining root,change this jst to be sure it is automatic 
+  width: 100px;
+  height: 100px; */
+  width: var(--cell-size);
+  height: var(--cell-size);
+  /* background-color: black; */
+  border: 1px solid black;
+  /*this is VVVV IMPORTANT TO DISPLAY CONTENT; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+}
+/* to remove the outer borders */
+/* 1 2 3
+4 5 6 
+7 8 9
+child numbers */
+/* of upper row upper borders */
+.cell:first-child,
+.cell:nth-child(2),
+.cell:nth-child(3) {
+  border-top: none;
+}
+/* 1st,2nd,3rd row ki leftside borders */
+.cell:nth-child(3n + 1) {
+  border-left: none;
+}
+/*same as above
+ .cell:first-child,
+.cell:nth-child(4),
+.cell:nth-child(7) {
+  border-left: none;
+} */
+/* 1st,2nd,3rd row ki rightside borders */
+.cell:nth-child(3n + 3) {
+  border-right: none;
+}
+/* .cell:nth-child(3),
+.cell:nth-child(6),
+.cell:nth-child(9) {
+  border-right: none;
+} */
+/* last row ki bottom border */
+.cell:last-child,
+.cell:nth-child(8),
+.cell:nth-child(7) {
+  border-bottom: none;
+}
+/* defined above others */
+.cell.x::before,
+.cell.x::after,
+.cell.circle::before,
+.cell.circle::after {
+  background-color: black;
+}
+
+.board.x .cell:not(.x):not(.circle):hover::before,
+.board.x .cell:not(.x):not(.circle):hover::after,
+.board.circle .cell:not(.x):not(.circle):hover::before,
+.board.circle .cell:not(.x):not(.circle):hover::after {
+  background-color: lightgrey;
+}
+/*STYLING FOR X ,this displays 2 lines sath mai joined*/
+.cell.x::before,
+.cell.x::after,
+/* not is used so tht on hovering already filled cells pe na jaye */
+.board.x .cell:not(.x):not(.circle):hover::before,
+.board.x .cell:not(.x):not(.circle):hover::after {
+  content: "";
+  /* to avoid overlapping of xs */
+  position: absolute;
+  width: calc(var(--mark-size) * 0.15);
+  height: var(--mark-size);
+}
+/* //creating x */
+.cell.x::before,
+.board.x .cell:not(.x):not(.circle):hover::before {
+  transform: rotate(45deg);
+}
+.cell.x::after,
+.board.x .cell:not(.x):not(.circle):hover::after {
+  transform: rotate(-45deg);
+}
+/*STYLING FOR O,this displays a rectangle*/
+.cell.circle::before,
+.cell.circle::after,
+.board.circle .cell:not(.x):not(.circle):hover::before,
+.board.circle .cell:not(.x):not(.circle):hover::after {
+  content: "";
+  /* to avoid overlapping of xs */
+  position: absolute;
+  border-radius: 50%;
+}
+/* //creating circle */
+.cell.circle::before,
+.board.circle .cell:not(.x):not(.circle):hover::before {
+  width: var(--mark-size);
+  height: var(--mark-size);
+}
+.cell.circle::after,
+.board.circle .cell:not(.x):not(.circle):hover::after {
+  width: calc(var(--mark-size) * 0.7);
+  height: calc(var(--mark-size) * 0.7);
+  background-color: rgb(5, 150, 53);
+}
+
+/* FOR HOVER-ADD CURSOR IN CELL */
+/* now show no cursor for filled cells */
+.cell.x,
+.cell.circle {
+  cursor: not-allowed;
+}
+
+.winning-message {
+  /* display none so that it does not show up by default */
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(5, 150, 53, 0.9);
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 5rem;
+  /* to stack x wins and button vertically */
+  flex-direction: column;
+}
+.winning-message button {
+  font-size: 2rem;
+  background-color: white;
+  border: 1px solid black;
+  padding: 0.25em 0.5em;
+  cursor: pointer;
+}
+.winning-message button:hover {
+  background-color: black;
+  color: white;
+  border-color: white;
+}
+.winning-message.show {
+  display: flex;
+}
