@@ -177,9 +177,9 @@ child numbers */
   cursor: pointer;
 }
 .winning-message button:hover {
-  background-color: black;
-  color: white;
-  border-color: white;
+  background-color: #000000;
+  color: #FFFFFF;
+  border-color: #FFFFFF;
 }
 .winning-message.show {
   display: flex;
